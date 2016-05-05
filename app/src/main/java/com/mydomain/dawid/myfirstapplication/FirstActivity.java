@@ -1,10 +1,12 @@
 package com.mydomain.dawid.myfirstapplication;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -15,6 +17,7 @@ public class FirstActivity extends AppCompatActivity {
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
+    public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
     private GoogleApiClient client;
 
     @Override
@@ -25,9 +28,16 @@ public class FirstActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
-    public void buttonOnClick(View view){
-        //Button b = (Button) view;
-        ((Button)view).setText("Clicked");
+    public void sendMessage(View view){
+        Intent intent = new Intent(this, DisplayMessageActivity.class);
+        EditText editText = (EditText) findViewById(R.id.edit_message);
+        String message = editText.getText().toString();
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
+    public void displayMap(View view){
+        Intent intent = new Intent(this, MapKrakow.class);
+        startActivity(intent);
     }
     @Override
     public void onStart() {
